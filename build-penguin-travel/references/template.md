@@ -8,7 +8,7 @@
 ## 数据字段
 schemaVersion=3。示例以 `assets/template/trip-data.json` 为准，禁止沿用旧 schemaVersion=1/2 的素材样例。
 - `id`：独立旅行的稳定ID。新旅行必须换ID；既有旅行更新保持ID。scaffold未指定资料时生成新ID，指定 `--data` 时沿用该资料ID。
-- `title/subtitle/startDate/endDate/timezone/coverImage`：标题、目的地、日期、IANA时区与封面。换目的地时替换通用 cover.svg 为本次地标封面，保留企鹅主屏幕图标；完成后将 demo=false。
+- `title/subtitle/startDate/endDate/timezone/coverImage`：标题、目的地、日期、IANA时区与封面。换目的地时由AI根据本次地标自动生成封面并更新coverImage，不要求使用者自己准备图片；优先使用当前工具的图像生成能力或使用者指定的封面Skill，无法生成图片时用原创SVG地标插画并说明实际方式，不把通用占位图当成完成的目的地封面，保留企鹅主屏幕图标；完成后将 demo=false。
 - `importantEvents`：稳定ID、带偏移的at时间、title、description。只填重要事项，自动按时间选下一项；不是每条活动提醒。
 - `overview`：cities（id/name/dayLabel）、legs（from/to/mode/status）。城市阶段从实际天数更新。
 - `bookings`：flights的每个segments记录当地带偏移时间、各自IANA时区；hotels有rooms，取消政策简短且无价格；pending独立标待购/待预约。
@@ -25,4 +25,4 @@ schemaVersion=3。示例以 `assets/template/trip-data.json` 为准，禁止沿�
 不提供清空数据、账单导入导出或前端PIN伪安全入口。若要云端/访问保护，遵循privacy-and-publishing.md，用使用者自己的服务替换 storage.js 接口并验证，不连原作者服务。
 
 ## 交付
-替换资料后运行数据验证及记账测试，再按qa.md操作手机预览。检查实际地点、交通预算、封面、订票状态与未确认项。先交可用预览，公开部署仍需用户授权。网站默认静态可访问，服务器保护未配置前不要放私人订单和财务。
+替换资料后运行数据验证及记账测试，再按qa.md操作手机预览。检查实际地点、交通预算、封面、订票状态与未确认项。未要求发布时先交可用预览；使用者明确要求发布且平台支持时直接发布并验证最终网址，不重复确认。无发布能力时交付完整项目并说明限制。网站默认静态可访问，服务器保护未配置前不要放私人订单和财务。
