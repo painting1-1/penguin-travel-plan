@@ -33,3 +33,5 @@ schemaVersion=3。示例以 `assets/template/trip-data.json` 为准，禁止沿�
 行李用户改动保存在页面状态的`packingItems`（稳定id/category/text/removed）中，勾选继续使用`packing[id]`布尔值。与trip.packing按ID合并，删除标记优先；保留旧版只有packing勾选数据的兼容，不在旅行资料替换时清空用户修改。新增项只能属于预设分类，删除最后一项后保留空分类及+入口。云同步扩展同时保存两个字段，不借用原作者配置。
 
 总览底图使用目的地专属的细腻铅笔/水彩栅格插画；先查看 assets/overview-style-reference.webp，不能用简化SVG色块替代。画幅按地区确定，overview.canvas与图片长宽比一致，按overview-map.md核对地理与视觉质量。随附地图仅是虚构演示的画风样例，不可只换真实城市名字继续使用。
+
+- 时间字段与显示遵循product.md的“时间呈现”规则，地区名称使用中文，交通保留绝对起降时间及各自时区。
