@@ -8,7 +8,7 @@
 ## 数据字段
 schemaVersion=3。示例以 `assets/template/trip-data.json` 为准，禁止沿用旧 schemaVersion=1/2 的素材样例。
 - `id`：独立旅行的稳定ID。新旅行必须换ID；既有旅行更新保持ID。scaffold未指定资料时生成新ID，指定 `--data` 时沿用该资料ID。
-- `title/subtitle/startDate/endDate/timezone/coverImage`：标题、目的地、日期、IANA时区与封面。换目的地时由AI根据本次地标自动生成封面并更新coverImage，不要求使用者自己准备图片；优先使用当前工具的图像生成能力或使用者指定的封面Skill，无法生成图片时用原创SVG地标插画并说明实际方式，不把通用占位图当成完成的目的地封面，保留企鹅主屏幕图标；完成后将 demo=false。
+- `title/subtitle/startDate/endDate/timezone/coverImage`：标题、目的地、日期、IANA时区与封面。换目的地时按design.md的目的地封面指令自动生成地标或风景背景并更新coverImage；封面自由选色、不要求企鹅，保留网页UI配色与主屏幕图标；完成后将 demo=false。
 - `importantEvents`：稳定ID、带偏移的at时间、title、description。只填重要事项，自动按时间选下一项；不是每条活动提醒。
 - `overview`：cities（id/name/dayLabel）、legs（from/to/mode/status）。城市阶段从实际天数更新。
 - `bookings`：flights的每个segments记录当地带偏移时间、各自IANA时区；hotels有rooms，取消政策简短且无价格；pending独立标待购/待预约。
