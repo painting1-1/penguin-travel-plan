@@ -70,11 +70,37 @@
     $('#overview-map').innerHTML=`<svg class="overview-handdrawn" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" role="img" aria-label="${esc(text)}"><defs>${[0,1].map((v)=>`<marker id="overview-arrow-${v}" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L7 4L0 8" fill="none" stroke="${v?'#7148A1':'#E87340'}" stroke-width="2"/></marker>`).join('')}<symbol id="overview-plane" viewBox="0 0 64 64"><path d="M56 27 37 25 28 5c-2-4-6-4-7 0l2 21-14 2-5-6-3 1 2 10-2 10 3 1 5-6 14 2-2 21c1 4 5 4 7 0l9-20 19-2c6-1 7-10 0-12Z" fill="currentColor"/></symbol></defs><rect width="100%" height="100%" rx="18" fill="#F7F3E8"/>${backdrop&&allPlaced?`<image class="overview-terrain" href="${esc(backdrop)}" width="${w}" height="${h}" preserveAspectRatio="none"/>`:''}${lines}${cities.map((c,i)=>{const [x,y]=pos.get(c.id);const anchor=c.labelAnchor||'middle',offset=c.labelOffset||[0,48];return `<g class="overview-city"><circle cx="${x}" cy="${y}" r="19" fill="#092653" stroke="#FFFDF4" stroke-width="3"/><text x="${x}" y="${y+7}" text-anchor="middle" font-size="23" font-weight="700" fill="white">${i+1}</text><text class="overview-city-label" x="${x+offset[0]}" y="${y+offset[1]}" text-anchor="${anchor}" font-size="34" font-weight="700">${esc(c.name)}</text><text class="overview-city-label overview-stage" x="${x+offset[0]}" y="${y+offset[1]+29}" text-anchor="${anchor}" font-size="23">${esc(c.dayLabel||'')}</text></g>`;}).join('')}</svg><p class="tiny overview-map-note">${esc(note)}</p><ol class="overview-route-text">${legs.map(l=>`<li>${esc(modes[l.mode]||'→')} ${esc(cities.find(c=>c.id===l.from)?.name)} → ${esc(cities.find(c=>c.id===l.to)?.name)}${l.status?' · '+esc(l.status):''}</li>`).join('')}</ol>`;
     const terrain=$('.overview-terrain');if(terrain)terrain.addEventListener('error',()=>{terrain.remove();$('.overview-map-note').textContent='手绘底图未加载，路线和城市信息仍可查看。';});
   }
+  // Prefer balanced rows within a readable card width; never change card order.
+  let cardGridObserver;
+  function balanceCardGrids(){
+    for(const grid of document.querySelectorAll('.pending-grid,#packing-groups')){
+      const pending=grid.classList.contains('pending-grid');
+      const cards=[...grid.querySelectorAll(pending?':scope > .pending-item':':scope > details')];
+      const n=cards.length;if(!n){grid.style.setProperty('--card-columns',1);continue;}
+      const texts=cards.flatMap(c=>[...c.querySelectorAll(pending?'h4,p':'.pack-text,summary')].map(e=>e.textContent.trim().length));
+      const longest=Math.max(0,...texts);
+      const minWidth=pending?(longest>140?380:300):(longest>45?300:220);
+      const max=innerWidth<=700?1:Math.min(4,n,Math.max(1,Math.floor((grid.clientWidth+12)/(minWidth+12))));
+      let columns=1,best=Infinity;
+      for(let c=1;c<=max;c++){
+        const rows=Math.ceil(n/c),last=n%c||c;
+        const score=rows*2+(rows*c-n)*.5+(rows>1&&last===1&&c>1?.5:0)-c*.05;
+        if(score<best){best=score;columns=c;}
+      }
+      grid.style.setProperty('--card-columns',columns);
+    }
+  }
+  function observeCardGrids(){
+    if(!cardGridObserver&&typeof ResizeObserver!=='undefined')cardGridObserver=new ResizeObserver(balanceCardGrids);
+    document.querySelectorAll('.pending-grid,#packing-groups').forEach(grid=>cardGridObserver?.observe(grid));
+    balanceCardGrids();
+  }
   function renderBookings() {
     const b=trip.bookings;
     $('#booking-board').innerHTML=`<h3 class="booking-group-title">✈️ 航班</h3>${b.flights.length?b.flights.map(f=>`<article class="card booking-card"><div class="booking-card-head"><h3>${esc(f.title)}</h3></div><div class="booking-card-body">${f.segments.map((s,i)=>`${i?`<p class="flight-connection">中转 · ${duration(Math.round((Date.parse(s.departure)-Date.parse(f.segments[i-1].arrival))/60000))}</p>`:''}<div class="flight-segment"><div class="flight-top"><span>${esc(s.number)}</span><span class="booking-badge">${esc(s.status||'待确认')}</span></div><div class="flight-route"><div class="flight-stop"><strong>${clock(s.departure,s.departureZone)}</strong><span>${esc(s.from)}<br>${zoned(s.departure,s.departureZone,{month:'2-digit',day:'2-digit',timeZoneName:'shortOffset'})}</span></div><div class="flight-direction"><span>✈</span><small>${duration(Math.round((Date.parse(s.arrival)-Date.parse(s.departure))/60000))}</small></div><div class="flight-stop"><strong>${clock(s.arrival,s.arrivalZone)}</strong><span>${esc(s.to)}<br>${zoned(s.arrival,s.arrivalZone,{month:'2-digit',day:'2-digit',timeZoneName:'shortOffset'})}</span></div></div></div>`).join('')}<p class="flight-foot">各段显示起降地当地日期与时间。</p></div></article>`).join(''):'<p class="card tiny">已订航班待补充</p>'}
     <h3 class="booking-group-title">🏨 住宿</h3>${b.hotels.length?b.hotels.map(h=>`<article class="card booking-card"><div class="booking-card-head"><h3>${h.placeId?placeLink(h.placeId):esc(h.name)}</h3></div><div class="booking-card-body">${h.rooms.map(r=>`<div class="hotel-room"><strong>${esc(r.type)}</strong> <span class="booking-badge">${esc(r.status||'待确认')}</span><p class="tiny">入住 ${esc(r.checkIn)} → 退房 ${esc(r.checkOut)} · 当地日期</p><p class="tiny">${esc(r.cancellation||'取消政策待确认')}</p></div>`).join('')}<p class="tiny">${esc(h.address||'地址待补充')}${h.phone?` · <a href="tel:${esc(h.phone.replace(/[^+\d]/g,''))}">${esc(h.phone)}</a>`:''}</p></div></article>`).join(''):'<p class="card tiny">已订住宿待补充</p>'}
     <h3 class="booking-group-title">🎫 待购票／待预约</h3><div class="pending-grid">${b.pending.length?b.pending.map(p=>`<article class="card pending-item"><div class="pending-item-head"><h4>${esc(p.title)}</h4><span class="booking-badge">${esc(p.status||'待确认')}</span></div><p class="pending-timing">⏰ ${esc(p.timing||'办理时间待确认')}</p>${p.placeId?`<p class="tiny">${placeLink(p.placeId)}</p>`:''}${p.note?`<p class="tiny pending-note">${esc(p.note)}</p>`:''}</article>`).join(''):'<p class="tiny pending-empty">暂无待购票或待预约事项</p>'}</div>`;
+    observeCardGrids();
   }
   function routeUrl(ids) {
     const points=ids.map(id=>places.get(id)).filter(Boolean).map(p=>p.query||p.name);
@@ -136,6 +162,7 @@
     $('#packing-progress').textContent=`已收好 ${count(all)} / ${all.length} 组`;
     $('#packing-groups').innerHTML=[...groups].map(([category,rows])=>`<details class="list-group" data-pack-category="${esc(category)}" ${openGroups.get(category)===false?'':'open'}><summary>${esc(category)} <span>${count(rows)} / ${rows.length}</span></summary><ul class="checklist">${rows.map(p=>`<li data-pack-row="${esc(p.id)}" class="${state.packing[p.id]?'completed':''}"><input type="checkbox" data-pack="${esc(p.id)}" aria-label="收好：${esc(p.text)}" ${state.packing[p.id]?'checked':''}><span class="pack-text" role="button" tabindex="0" aria-label="修改：${esc(p.text)}">${esc(p.text)}</span></li>`).join('')}</ul><button type="button" class="pack-add" data-pack-add="${esc(category)}" aria-label="添加${esc(category)}物品">+</button></details>`).join('');
     $('#packing-groups').querySelectorAll('input,button').forEach(el=>el.disabled=packingBusy);
+    observeCardGrids();
   }
   function editPacking(li,isNew=false){
     if(packingEdit||packingBusy)return;
@@ -179,7 +206,7 @@
     const response=await fetch('trip-data.json',{cache:'no-store'});if(!response.ok)throw Error('旅行资料读取失败');trip=await response.json();if(!trip.id||!trip.days?.length||!trip.places)throw Error('请先运行资料验证，补齐旅行ID和每日行程。');places=new Map(trip.places.map(p=>[p.id,p]));
     const seed={packing:{},packingItems:{},shopping:trip.shopping||[],guides:{}};for(const d of trip.days)for(const e of d.events)for(const g of e.guides||[])seed.guides[g.id]={...g,eventId:e.id};state=PenguinStorage.read(trip.id,'page',seed);state.packingItems||={};for(const [id,g] of Object.entries(seed.guides))if(!(id in state.guides))state.guides[id]=g;
     document.title=trip.title;$('#brand').firstChild.textContent=trip.title;const dates=`${trip.startDate}—${trip.endDate} · ${dayCount()} DAYS`;$('#header-dates').textContent=dates;$('#cover-title').textContent=trip.title;$('#cover-destination').textContent=trip.subtitle;$('#cover-dates').textContent=dates;$('#overview-dates').textContent=`${dayCount()} 天`;$('#cover-photo').src=safeUrl(trip.coverImage)||'assets/cover.svg';$('#demo-note').hidden=!trip.demo;
-    renderOverview();renderBookings();renderDays();renderPacking();renderShopping();renderTodos();bind();tick();setInterval(tick,1000);
+    renderOverview();renderBookings();renderDays();renderPacking();renderShopping();renderTodos();bind();window.addEventListener('resize',balanceCardGrids);tick();setInterval(tick,1000);
     await TravelLedger.init({root:'#ledger-root',tripId:trip.id,configUrl:false,adapter:PenguinStorage.ledgerAdapter(trip.id,trip.ledger)});
     window.PenguinTravel={getTrip:()=>clone(trip),getPageState:()=>clone(state),tick,parseShare,routeUrl,routeSegments};
   }
