@@ -1,5 +1,5 @@
 <p align="center"><img src="icons/icon-512.png" alt="背上行囊的小企鹅" width="180"></p>
-<h1 align="center">跟小企鹅一起出发吧 🐧</h1>
+<h1 align="center">penguim-travel-plan</h1>
 
 把航班、酒店、想去的地方和旅行需求交给 AI，套用一张适合手机查看的旅行网页。
 
