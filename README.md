@@ -28,7 +28,7 @@
 
 > 请使用 penguin-travel-plan 的现成模板，先阅读 build-penguin-travel/SKILL.md。我的目的地是【】，日期是【】，同行【】人，已确定的航班、酒店和想去的地方是【】。请替换旅行资料和封面，复用现有布局与功能，为新旅行使用独立 ID，核对路线和时间，检查手机端后给我可用预览。默认本地运行并保存数据；公开部署前向我确认。
 
-想自己预览：下载并解压仓库，在目录运行 `python3 -m http.server 8000`，打开 http://localhost:8000/。也可以运行 `npm run preview`，无需安装依赖。不要直接双击 HTML。
+想自己预览：下载并解压仓库，在目录运行 `python3 -m http.server 8000`，打开 [http://localhost:8000/](http://localhost:8000/)。也可以运行 `npm run preview`，无需安装依赖。不要直接双击 HTML。
 
 ## 数据存在哪里？
 
