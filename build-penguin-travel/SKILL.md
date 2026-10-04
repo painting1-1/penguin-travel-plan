@@ -10,7 +10,7 @@ description: 制作或更新“小企鹅旅行手册”风格的旅行网页，�
 ## 工作流程
 
 1. 明确目的地、日期、人数及确定的交通住宿。复用用户提供的信息，只问影响路线的关键缺项。没有信息时使用明确标注的虚构示例。
-2. 阅读 [设计规则](references/design.md) 与 [功能规则](references/product.md)。包含记账时必读 [记账结构与算法](references/ledger.md)。涉及公开、部署、登录、云同步时，再阅读 [发布与隐私](references/privacy-and-publishing.md)。
+2. 阅读 [设计规则](references/design.md)、[功能规则](references/product.md) 与 [板块契约](references/sections.md)，制作记账时同时阅读 [记账规则](references/ledger.md)。包含记账时必读 [记账结构与算法](references/ledger.md)。涉及公开、部署、登录、云同步时，再阅读 [发布与隐私](references/privacy-and-publishing.md)。
 3. 新建页面运行 `python3 scripts/scaffold.py --output <新目录>`，准备样式、图标、manifest、演示数据和 layout-example.html；新站先阅读并沿用 [页面结构示例](assets/layout-example.html) 的 DOM 顺序、组件位置与局部交互，再填数据并完成实际功能。示例仅是结构演示，不能原样称为完整产品。脚本不是网站生成器，不部署、不连接数据库。既有页面仅合并需要的资源，禁止重建覆盖。
 4. 默认制作一张从上到下连续滚动的长网页，按封面→旅行概览与交通住宿→每日行程→行李→必买→待办→记账排列。顶部五个导航只滚动定位，不隐藏其他主要板块。仅每日日期和记账内部允许局部切换。用户只需部分时从其要求，既有页面保留框架。没有项目时可用 HTML/CSS/JS；明确要求单文件时内联样式与脚本，图标可作为相邻文件交付。
 5. 核对动态事实，优先店铺、运营方与旅游机构。无法核实就写“待确认”，不编造营业、价格、船班、坐标和转场耗时。研究依据保留在开发记录，默认不显示在紧凑行程卡片中。
@@ -19,6 +19,7 @@ description: 制作或更新“小企鹅旅行手册”风格的旅行网页，�
 
 ## 资源
 
+- `assets/layout-example.html`：组件位置与局部交互示例；成品需接入真实功能，禁止直接把示例当完整网站。
 - `assets/theme.css`：固定浅色橙紫变量与紧凑布局基础。
 - `assets/icons/`：原作者授权复用的企鹅图标，保留原图，不换成文字、表情或另一只企鹅。
 - `assets/trip.example.json`：虚构通用数据结构，不是固定目的地安排。

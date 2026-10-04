@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "demo": true,
   "title": "小企鹅旅行手册",
   "description": "完全虚构的字段样例，请替换为自己的旅行。",
@@ -57,6 +57,72 @@
     }
   ],
   "shopping": [],
-  "todos": [],
-  "bills": []
+  "todos": [
+    {
+      "id": "task-demo",
+      "relatedEventId": "event-demo",
+      "timingLabel": "出发前",
+      "deadline": null,
+      "timezone": "Asia/Shanghai",
+      "title": "确认示例预约要求",
+      "description": "由 AI 根据行程整理。",
+      "calendarLeadHours": 24
+    }
+  ],
+  "bills": [],
+  "startDate": null,
+  "endDate": null,
+  "cover": {
+    "destinationLabel": "示例城市 A · 示例城市 B",
+    "image": null
+  },
+  "importantEvents": [
+    {
+      "id": "focus-demo",
+      "at": null,
+      "title": "示例取消期限",
+      "description": "替换为用户已确认的带时区时间。"
+    }
+  ],
+  "overview": {
+    "cities": [
+      {
+        "id": "city-a",
+        "name": "示例城市 A",
+        "dayRange": [
+          1,
+          1
+        ]
+      },
+      {
+        "id": "city-b",
+        "name": "示例城市 B",
+        "dayRange": [
+          2,
+          2
+        ]
+      }
+    ],
+    "legs": [
+      {
+        "id": "leg-demo",
+        "from": "city-a",
+        "to": "city-b",
+        "mode": "bus",
+        "status": "候选"
+      }
+    ]
+  },
+  "bookings": {
+    "flights": [],
+    "hotels": [],
+    "pending": [
+      {
+        "id": "pending-demo",
+        "title": "示例门票",
+        "status": "待购票",
+        "at": null
+      }
+    ]
+  }
 }
