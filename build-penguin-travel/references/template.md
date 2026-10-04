@@ -2,7 +2,7 @@
 
 ## 默认路径
 新旅行优先运行 `python3 scripts/scaffold.py --output <新目录>`，得到完整可运行网页。不要从零重写布局或用 layout-example.html 代替成品。
-模板来自原作者最终页面的布局与交互，旅行资料集中在 `trip-data.json`。更换资料，复用已有 CSS、地图、清单、攻略和记账代码；仅因用户明确改变功能或发现缺陷才修改组件。
+模板来自原作者最终页面的布局与交互，旅行资料集中在 `trip-data.json`。更换资料，复用已有 CSS、地图、清单、攻略和记账代码；仅因用户明确改变功能、发现缺陷或按目的地适配导航服务才修改组件。模板默认Google导航；中国大陆或混合旅行由AI按product.md的地图服务选择规则实际适配链接生成与回退逻辑，不能只改资料宣称已支持高德。
 运行 `python3 scripts/validate_trip.py <项目目录>/trip-data.json`；预览可用 `python3 -m http.server 8000 --directory <项目目录>`。项目内有 Node 时可 `npm run preview`、`npm run validate`、`npm test`，不需 npm install。
 
 ## 数据字段
