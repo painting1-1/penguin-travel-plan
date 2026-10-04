@@ -9,3 +9,19 @@
 #packing-groups{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;align-items:start}#packing-groups .list-group{border:1px solid var(--line);border-radius:16px;background:var(--paper);min-width:0}#packing-groups .checklist{margin:0;padding:3px 14px 8px}#packing-groups .checklist li:last-child{border-bottom:0}#packing-groups summary{gap:6px;font-size:14px}#packing-groups summary span{font-size:11px;white-space:nowrap}#packing-groups .checklist label{font-size:13px;overflow-wrap:anywhere}
 @media(min-width:701px) and (max-width:999px){.pending-grid,#packing-groups{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:700px){.pending-grid,#packing-groups{grid-template-columns:1fr;gap:9px}.pending-item{padding:11px 12px}.pending-item h4{font-size:14px}.overview-route-text{font-size:11px;gap:4px 12px}}
+
+/* Fixed categories, lightweight inline packing editing. */
+#packing-groups summary{font-size:16px}
+#packing-groups .checklist li{display:flex;align-items:flex-start;gap:10px;min-width:0;padding:8px 0;font-size:14px;line-height:1.5}
+#packing-groups .checklist input{flex:0 0 auto;margin-top:3px}
+#packing-groups .pack-text{flex:1;min-width:0;cursor:text;overflow-wrap:anywhere}
+#packing-groups .pack-text:focus-visible{outline:2px solid var(--brand);outline-offset:3px;border-radius:4px}
+#packing-groups .completed .pack-text{text-decoration:line-through;color:var(--muted)}
+#packing-groups .pack-editor{display:block;flex:1;min-width:0;width:100%;font:inherit;line-height:1.6;color:inherit;background:var(--soft);border:1px solid var(--brand);border-radius:6px;padding:4px 7px;resize:none;overflow:hidden}
+#packing-groups .pack-add{display:block;position:relative;margin:2px 12px 10px auto;width:36px;height:36px;padding:0;border:0;border-radius:8px;background:transparent;color:var(--brand);font-size:0;cursor:pointer}
+#packing-groups .pack-add::before,#packing-groups .pack-add::after{content:'';position:absolute;top:50%;left:50%;background:currentColor;transform:translate(-50%,-50%)}
+#packing-groups .pack-add::before{width:16px;height:1px}
+#packing-groups .pack-add::after{width:1px;height:16px}
+#packing-groups .pack-add:hover{background:var(--soft)}
+#packing-groups .pack-add:disabled{opacity:.4;cursor:default}
+@media(max-width:700px){#packing-groups summary{font-size:15px}#packing-groups .checklist li{font-size:13px;padding:7px 0}#packing-groups .pack-editor{font-size:16px}#packing-groups .pack-add{width:44px;height:44px}}

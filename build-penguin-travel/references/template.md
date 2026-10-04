@@ -14,7 +14,7 @@ schemaVersion=3。示例以 `assets/template/trip-data.json` 为准，禁止沿�
 - `bookings`：pending每条渲染一张独立小卡，不能全部放在一张大卡中。flights的每个segments记录当地带偏移时间、各自IANA时区；hotels有rooms，取消政策简短且无价格；pending独立标待购/待预约。
 - `places`：稳定ID、name、准确query、[lat,lon]或null、intro、approximate。区域点用approximate=true；不捏造坐标，null时保留名称导航。
 - `days`：稳定ID、date/city/label/title/stay/timezone/color、routePlaceIds及events。路线保留重复酒店ID表达往返；长路线自动分段生成导航链接，避免手机浏览器途经点限制导致漏点；每活动有id、start/end（HH:MM）、title、placeId、note、status、guides。默认不使用browse、夜市摊位路线或“有空再逛”专用字段/组件。跨日节点明确说明日期，跨时区活动给timezone。
-- `packing`：每组id/category/text，同category汇成独立卡；桌面三列/平板两列/手机一列。`shopping`：初始商品id/name及可选photo；默认空。
+- `packing`：每组id/category/text，同category汇成独立卡；桌面三列/平板两列/手机一列，初始分类固定、物品可用细线+新增及点击文字修改。`shopping`：初始商品id/name及可选photo；默认空。
 - `todos`：由AI从资料生成稳定ID、timingLabel、title、description、可选带偏移deadline与calendarLeadHours、相关event/booking ID。不增加网页编辑入口。
 - `ledger`：初始settings、travelers与bills。真实模板默认空账单、不预选本人。人员稳定ID用于关联；汇率不编造，未知保持空并由设置补充。金额字段名称保留Cents兼容代码，但实际为各币种最小单位，算法见ledger.md。
 
@@ -29,3 +29,5 @@ schemaVersion=3。示例以 `assets/template/trip-data.json` 为准，禁止沿�
 
 ## 当日底图适配
 基础模板随附Leaflet/OSM，示例不代表已接入高德。执行AI为国内旅行按product.md配置使用者自己的高德JS API与安全设置，并替换底图/标记/连线实现；各地图共享当日点位、顺序、全览、放大、点选交互。不要求模板作者提供密钥，不能用非官方瓦片地址绕过高德配置。没有配置时明确说明，提供路线示意及高德外部导航，不称为高德底图。
+
+行李用户改动保存在页面状态的`packingItems`（稳定id/category/text/removed）中，勾选继续使用`packing[id]`布尔值。与trip.packing按ID合并，删除标记优先；保留旧版只有packing勾选数据的兼容，不在旅行资料替换时清空用户修改。新增项只能属于预设分类，删除最后一项后保留空分类及+入口。云同步扩展同时保存两个字段，不借用原作者配置。
