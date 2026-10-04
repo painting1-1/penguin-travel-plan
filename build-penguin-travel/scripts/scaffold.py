@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Prepare brand assets and demo data; do not create or deploy a website."""
+"""Prepare brand assets, demo data and a layout example; do not deploy a website."""
 import argparse
 import json
 import shutil
@@ -16,6 +16,7 @@ def main():
     dest.mkdir(parents=True, exist_ok=True)
     shutil.copy2(root / "assets/theme.css", dest / "theme.css")
     shutil.copy2(root / "assets/trip.example.json", dest / "trip.json")
+    shutil.copy2(root / "assets/layout-example.html", dest / "layout-example.html")
     shutil.copytree(root / "assets/icons", dest / "icons")
     shutil.copy2(root / "LICENSE", dest / "LICENSE")
     manifest = {
@@ -28,7 +29,7 @@ def main():
         ]
     }
     (dest / "site.webmanifest").write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    print(f"Prepared assets and demo data in {dest}. Create index.html next.")
+    print(f"Prepared assets and demo data in {dest}. Read layout-example.html first, then create the complete index.html.")
     print('HTML head: <link rel="stylesheet" href="./theme.css"><link rel="manifest" href="./site.webmanifest"><link rel="apple-touch-icon" sizes="180x180" href="./icons/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="./icons/favicon-32.png">')
 
 if __name__ == "__main__":
