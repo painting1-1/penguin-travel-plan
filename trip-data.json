@@ -30,8 +30,8 @@
         "name": "出发城市",
         "dayLabel": "出发／返回",
         "position": [
-          0.71,
-          0.24
+          0.67,
+          0.18
         ]
       },
       {
@@ -39,8 +39,8 @@
         "name": "示例港湾",
         "dayLabel": "D1–D2",
         "position": [
-          0.7,
-          0.7
+          0.42,
+          0.675
         ]
       },
       {
@@ -49,7 +49,7 @@
         "dayLabel": "D3",
         "position": [
           0.3,
-          0.38
+          0.37
         ]
       }
     ],
@@ -73,12 +73,12 @@
         "status": "已确认（演示）"
       }
     ],
-    "mapImage": "assets/overview-map.svg",
+    "mapImage": "assets/overview-map.webp",
     "canvas": {
-      "width": 960,
-      "height": 720
+      "width": 1122,
+      "height": 1402
     },
-    "mapNote": "虚构地区手绘示例 · 请按实际目的地重新生成地形背景与城市位置。"
+    "mapNote": "虚构行程 · 底图为手绘画风示例，实际旅行需按目的地重绘并校准点位。"
   },
   "bookings": {
     "flights": [

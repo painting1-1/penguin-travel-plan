@@ -31,3 +31,5 @@ schemaVersion=3。示例以 `assets/template/trip-data.json` 为准，禁止沿�
 基础模板随附Leaflet/OSM，示例不代表已接入高德。执行AI为国内旅行按product.md配置使用者自己的高德JS API与安全设置，并替换底图/标记/连线实现；各地图共享当日点位、顺序、全览、放大、点选交互。不要求模板作者提供密钥，不能用非官方瓦片地址绕过高德配置。没有配置时明确说明，提供路线示意及高德外部导航，不称为高德底图。
 
 行李用户改动保存在页面状态的`packingItems`（稳定id/category/text/removed）中，勾选继续使用`packing[id]`布尔值。与trip.packing按ID合并，删除标记优先；保留旧版只有packing勾选数据的兼容，不在旅行资料替换时清空用户修改。新增项只能属于预设分类，删除最后一项后保留空分类及+入口。云同步扩展同时保存两个字段，不借用原作者配置。
+
+总览底图使用目的地专属的细腻铅笔/水彩栅格插画；先查看 assets/overview-style-reference.webp，不能用简化SVG色块替代。画幅按地区确定，overview.canvas与图片长宽比一致，按overview-map.md核对地理与视觉质量。随附地图仅是虚构演示的画风样例，不可只换真实城市名字继续使用。
