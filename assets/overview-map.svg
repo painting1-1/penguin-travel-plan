@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 720">
+<title>虚构港湾与山地的手绘底图</title>
+<desc>原创风格示例，并非真实地区地图；旅行制作时根据实际地形重新生成。</desc>
+<defs>
+ <pattern id="paper" width="48" height="44" patternUnits="userSpaceOnUse"><path d="M2 6h2m20 25h1m16-20h2M9 39h1" stroke="#B8A98B" opacity=".18" stroke-width="1"/></pattern>
+ <pattern id="sea" width="64" height="34" patternUnits="userSpaceOnUse"><path d="M8 18q8-4 16 0t16 0" fill="none" stroke="#638D97" stroke-width="1" opacity=".35"/></pattern>
+ <pattern id="forest" width="50" height="56" patternUnits="userSpaceOnUse"><path d="M12 34 21 15 31 34m-16-8 6-14 7 14M21 35v10" fill="none" stroke="#6F8264" opacity=".48" stroke-width="1.6" stroke-linecap="round"/></pattern>
+ <symbol id="mountain" viewBox="0 0 95 80"><path d="M3 74 35 12 45 32 62 3 92 73" fill="#DDDCC2" stroke="#797E65" stroke-width="2" stroke-linejoin="round"/><path d="m23 34 12-22 10 20 17-29 13 27m-24-8 11-19 9 22" fill="none" stroke="#F7F3E7" stroke-width="3"/><path d="m35 12 1 27 9 18m17-54 5 34 17 27" fill="none" stroke="#939680" stroke-width="1.4"/></symbol>
+ <symbol id="village" viewBox="0 0 100 75"><g fill="#EEE4D4" stroke="#968168" stroke-width="1.5" stroke-linejoin="round"><path d="M4 44 19 29 35 44v25H4Zm25-13L47 11l21 20v38H29Zm35 12 14-14 18 14v26H64Z"/><path d="M4 44h31m-6-13h39m-4 12h32" fill="none"/><path d="M43 69V51h10v18M13 51h8v9m20-27h8v9m24 9h8v8" fill="none"/></g></symbol>
+</defs>
+<rect width="960" height="720" fill="#F5F0E2"/>
+<path d="M716-10c-39 70 64 93 23 151s30 81-22 122-16 79 30 111-35 81-19 121 48 46 23 95-50 86-25 150H970V-10Z" fill="#C4DADF"/>
+<path d="M716-10c-39 70 64 93 23 151s30 81-22 122-16 79 30 111-35 81-19 121 48 46 23 95-50 86-25 150" fill="none" stroke="#778F8C" stroke-width="3" stroke-linecap="round"/>
+<path d="M747 0h213v720H760c-13-33 7-66 26-109s-31-62-22-103 24-70 11-100-45-48-39-78 36-36 37-72-22-66-11-100S747 26 747 0Z" fill="url(#sea)"/>
+<path d="M97 79q116-34 196 14t76 131q10 79-102 145T91 330Q40 226 97 79Z" fill="#D6DDC1" opacity=".63"/>
+<path d="M65 195q52-79 116-25t39 123q-70 56-135-13Z" fill="url(#forest)"/>
+<path d="M324 61q42 86 90 148t33 142q-8 59 55 117t229 45" fill="none" stroke="#ACC9CE" stroke-width="12" stroke-linecap="round"/>
+<path d="M324 61q42 86 90 148t33 142q-8 59 55 117t229 45" fill="none" stroke="#7199A0" stroke-width="1.4" stroke-linecap="round"/>
+<path d="M125 430q91-49 173-27t75 70q-84 80-195 58Z" fill="#DAE0C8" opacity=".7"/>
+<path d="M465 92q93-30 162 35t-20 125q-82 21-129-19Z" fill="#E4DABF" opacity=".4"/>
+<g opacity=".9"><use href="#mountain" x="158" y="115" width="92" height="77"/><use href="#mountain" x="247" y="79" width="120" height="101"/><use href="#mountain" x="332" y="138" width="98" height="83"/><use href="#mountain" x="71" y="357" width="72" height="61"/><use href="#mountain" x="469" y="88" width="72" height="61"/></g>
+<g stroke="#B2A68D" fill="none" stroke-linecap="round" opacity=".6"><path d="M130 212q111-51 218-6M104 222q111-52 209-11M135 582q126-57 224-13M185 596q99-39 153-23M459 641q121-23 212 20M476 653q82-15 148 9" stroke-width="1.2"/><path d="M536 272q21-13 48-6m-44 13q28-12 49-5M807 535q14-9 28-1t23-1m-26 105q22-11 48-2" stroke-width="1.5"/></g>
+<use href="#village" x="624" y="91" width="92" height="69"/><use href="#village" x="571" y="535" width="74" height="56"/><use href="#village" x="171" y="301" width="70" height="53"/>
+<g fill="none" stroke="#7D9398" stroke-width="1.5"><path d="M855 267q8-8 16 0m1 0q8-8 16 0M800 415q7-7 14 0m1 0q7-7 14 0"/><path d="M852 159h36l-8 10h-20Zm18-27v27m0-23 13 18h-13"/></g>
+<path d="M786 605q41-16 44 5t-34 15q-30-2-10-20Z" fill="#EEE7D2" stroke="#8F9D8B" stroke-width="1.5"/>
+<rect width="960" height="720" fill="url(#paper)"/>
+<path d="M25 640v-58m-6 10 6-10 6 10" stroke="#827F70" fill="none" stroke-width="1.5"/>
+<text x="25" y="572" text-anchor="middle" fill="#827F70" font-family="Georgia,serif" font-size="15">N</text>
+</svg>

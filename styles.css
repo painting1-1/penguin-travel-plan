@@ -643,13 +643,7 @@ body.night #ledger-root .ledger-currency-menu,body.night #ledger-root .ledger-on
  .day-zone{display:block;color:var(--muted);font-size:10px;line-height:1.4;margin-top:3px}
  .ledger-note{font-size:11px;padding:8px 10px;margin-bottom:0}
 }
-@media(min-width:701px){.day-zone{display:none}}
-
-.browse-choices{margin:8px 0;padding:8px 10px;background:var(--soft);border-radius:10px}.entry .browse-choices p{margin:4px 0;color:var(--ink)}.browse-optional>summary{cursor:pointer;font-size:12px;color:var(--brand);font-weight:700;padding:6px 0}.browse-optional p{margin-bottom:0}@media(max-width:700px){.browse-choices{padding:6px 8px}.entry .browse-choices p{font-size:12px;line-height:1.6}}
-
-.browse-route-link{display:inline-flex;align-items:center;min-height:36px;margin:4px 0;color:var(--brand);font-size:12px;font-weight:700;text-decoration:none}.day-current .browse-optional{margin:2px 0 0;padding:0;border:0;background:transparent;box-shadow:none;border-radius:0}.day-current .browse-optional>summary{display:flex;align-items:center;gap:8px;width:fit-content;max-width:100%;min-height:32px;height:auto;padding:4px 0;margin:0;grid-template-columns:none;cursor:pointer;list-style:none;font-size:12px;line-height:1.5;color:var(--brand);font-weight:700}.day-current .browse-optional>summary span{font-size:11px;font-weight:400;color:var(--muted)}.day-current .browse-optional>summary:after{content:'⌄';font-size:14px;margin:0;grid-column:auto;line-height:1}.day-current .browse-optional[open]>summary:after{content:'⌃'}.day-current .browse-optional>summary::-webkit-details-marker{display:none}.day-current .browse-optional p{margin:4px 0;font-size:12px;line-height:1.6}
-
-.day-current .browse-actions{display:flex;align-items:flex-start;flex-wrap:wrap;gap:0 12px;margin-top:4px}.day-current .browse-actions .browse-route-link{display:inline-flex;align-items:center;min-height:30px;margin:0;padding:3px 0;font-size:12px;line-height:1.5;white-space:nowrap}.day-current .browse-actions .browse-optional{flex:0 1 auto;margin:0;padding:0}.day-current .browse-actions .browse-optional>summary{min-height:30px;gap:4px;padding:3px 0;font-size:12px;line-height:1.5;white-space:nowrap}.day-current .browse-actions .browse-optional[open]{flex-basis:100%}.day-current .browse-actions .browse-optional p{margin:2px 0 0}@media(max-width:700px){.day-current .browse-choices{margin:6px 0;padding:6px 8px}.day-current .browse-actions{gap:0 10px;margin-top:2px}.day-current .browse-actions .browse-route-link,.day-current .browse-actions .browse-optional>summary{font-size:11px;min-height:30px;padding:3px 0}}
+@media(min-width:701px){.day-zone{display:none}}@media(max-width:700px){}@media(max-width:700px){}
 
 /* Compact guide rows: isolate their details menu from itinerary cards. */
 .day-current .guide-links{display:flex;flex-direction:column;align-items:stretch;gap:4px;margin:6px 0 0;padding:0}

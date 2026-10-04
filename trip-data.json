@@ -28,17 +28,29 @@
       {
         "id": "city-home",
         "name": "出发城市",
-        "dayLabel": "出发／返回"
+        "dayLabel": "出发／返回",
+        "position": [
+          0.71,
+          0.24
+        ]
       },
       {
         "id": "city-harbor",
         "name": "示例港湾",
-        "dayLabel": "D1–D2"
+        "dayLabel": "D1–D2",
+        "position": [
+          0.7,
+          0.7
+        ]
       },
       {
         "id": "city-mountain",
         "name": "示例山城",
-        "dayLabel": "D3"
+        "dayLabel": "D3",
+        "position": [
+          0.3,
+          0.38
+        ]
       }
     ],
     "legs": [
@@ -60,7 +72,13 @@
         "mode": "flight",
         "status": "已确认（演示）"
       }
-    ]
+    ],
+    "mapImage": "assets/overview-map.svg",
+    "canvas": {
+      "width": 960,
+      "height": 720
+    },
+    "mapNote": "虚构地区手绘示例 · 请按实际目的地重新生成地形背景与城市位置。"
   },
   "bookings": {
     "flights": [
@@ -133,6 +151,20 @@
         "status": "待预约",
         "note": "演示待办票证，不属于已确认订单。",
         "placeId": "harbor-park"
+      },
+      {
+        "id": "ticket-transport-demo",
+        "title": "城际交通车票",
+        "timing": "班次确定后购买",
+        "status": "待购票",
+        "note": "虚构示例，请核对出发时间和行李规则。"
+      },
+      {
+        "id": "booking-dinner-demo",
+        "title": "晚餐席位",
+        "timing": "出发前联系店铺",
+        "status": "待预约",
+        "note": "虚构示例，按人数和店铺要求确认。"
       }
     ]
   },
@@ -238,12 +270,7 @@
           "placeId": "harbor-park",
           "note": "沿河散步，再找咖啡店休息。",
           "status": "预约要求待确认",
-          "guides": [],
-          "browse": {
-            "routeUrl": "https://www.google.com/maps/dir/",
-            "routeLabel": "店铺步行路线",
-            "optional": "顺路小店有空再逛，不特意折返。"
-          }
+          "guides": []
         },
         {
           "id": "event-cafe",

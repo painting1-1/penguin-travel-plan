@@ -49,7 +49,17 @@ def validate(data):
             for g in e.get('guides',[]):
                 record(g,'guide');check(bool(re.match(r'^https://(?:[\w-]+\.)*(?:xiaohongshu\.com|xhslink\.(?:com|cn))/',g.get('url',''))),'guide must be a Xiaohongshu URL')
     cities=set()
-    for c in data.get('overview',{}).get('cities',[]):record(c,'city');cities.add(c.get('id'))
+    overview=data.get('overview',{})
+    def pair(value,low,high):return isinstance(value,list) and len(value)==2 and all(isinstance(x,(int,float)) and not isinstance(x,bool) and math.isfinite(x) and low<=x<=high for x in value)
+    if overview.get('canvas'):
+        check(all(isinstance(overview['canvas'].get(k),(int,float)) and not isinstance(overview['canvas'].get(k),bool) and math.isfinite(overview['canvas'][k]) and 200<=overview['canvas'][k]<=4000 for k in ['width','height']),'overview canvas requires finite width/height 200–4000')
+    for c in overview.get('cities',[]):
+        record(c,'city');cities.add(c.get('id'));check(bool(c.get('name')),'overview city name required')
+        if 'position' in c:check(pair(c['position'],0,1),'overview position must be normalized [x,y]')
+        if overview.get('mapImage'):check('position' in c,'overview background requires each city position')
+        if 'coordinates' in c:check(pair(c['coordinates'],-180,180) and -90<=c['coordinates'][0]<=90,'overview city coordinates must be [lat,lon]')
+        if 'labelOffset' in c:check(pair(c['labelOffset'],-4000,4000),'overview labelOffset invalid')
+        if 'labelAnchor' in c:check(c['labelAnchor'] in ['start','middle','end'],'overview labelAnchor invalid')
     for leg in data.get('overview',{}).get('legs',[]):check(leg.get('from') in cities and leg.get('to') in cities,'overview leg references unknown city')
     for e in data.get('importantEvents',[]):record(e,'important event');timestamp(e.get('at'),'important event')
     bookings=data.get('bookings',{})
