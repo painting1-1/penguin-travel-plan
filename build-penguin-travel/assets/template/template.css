@@ -25,3 +25,5 @@
 #packing-groups .pack-add:hover{background:var(--soft)}
 #packing-groups .pack-add:disabled{opacity:.4;cursor:default}
 @media(max-width:700px){#packing-groups summary{font-size:15px}#packing-groups .checklist li{font-size:13px;padding:7px 0}#packing-groups .pack-editor{font-size:16px}#packing-groups .pack-add{width:44px;height:44px}}
+
+.day-nav-link{max-width:100%;white-space:normal;overflow-wrap:anywhere}.navigation-note{margin:6px 0 10px}

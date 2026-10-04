@@ -12,8 +12,8 @@ schemaVersion=3。示例以 `assets/template/trip-data.json` 为准，禁止沿�
 - `importantEvents`：稳定ID、带偏移的at时间、title、description。只填重要事项，自动按时间选下一项；不是每条活动提醒。
 - `overview`：mapImage（目的地手绘底图路径）、canvas（width/height）、mapNote，cities（id/name/dayLabel/position以及可选coordinates、labelOffset、labelAnchor）、legs（from/to/mode/status）。position为相对画布的[x,y]，范围0–1，必须和底图对齐；coordinates为已核实的[lat,lon]，不用于日常导航。底图不得含固定城市名称或路线，按overview-map.md生成。城市阶段从实际天数更新。
 - `bookings`：pending每条渲染一张独立小卡，不能全部放在一张大卡中。flights的每个segments记录当地带偏移时间、各自IANA时区；hotels有rooms，取消政策简短且无价格；pending独立标待购/待预约。
-- `places`：稳定ID、name、准确query、[lat,lon]或null、intro、approximate。区域点用approximate=true；不捏造坐标，null时保留名称导航。
-- `days`：稳定ID、date/city/label/title/stay/timezone/color、routePlaceIds及events。路线保留重复酒店ID表达往返；长路线自动分段生成导航链接，避免手机浏览器途经点限制导致漏点；每活动有id、start/end（HH:MM）、title、placeId、note、status、guides。默认不使用browse、夜市摊位路线或“有空再逛”专用字段/组件。跨日节点明确说明日期，跨时区活动给timezone。
+- `places`：稳定ID、name、准确query、[lat,lon]或null、intro、approximate、kind（地点用途）、showIntro（可选关闭介绍）、navigationLabel（可选简短导航名称）。机场/普通车站/住宿/logistics不生成介绍；观光交通用experience。区域点用approximate=true；不捏造坐标，null时保留名称导航。
+- `days`：稳定ID、date/city/label/title/stay/timezone/color、routePlaceIds（完整地图点位）、navigationPlaceIds（主要导航节点，可省略并兼容routePlaceIds）及events。路线保留重复酒店ID表达往返；逛街店铺不自动加入navigationPlaceIds、不生成街区步行路线按钮。仅平台上限需要时分段，保留全部主要节点；按钮显示“导航1 · 起点 → 终点”且保留平台限制的简短说明，不列途经点；每活动有id、start/end（HH:MM）、title、placeId、note、status、guides。默认不使用browse、夜市摊位路线或“有空再逛”专用字段/组件。跨日节点明确说明日期，跨时区活动给timezone。
 - `packing`：每组id/category/text，同category汇成独立卡；桌面三列/平板两列/手机一列，初始分类固定、物品可用细线+新增及点击文字修改。`shopping`：初始商品id/name及可选photo；默认空。
 - `todos`：由AI从资料生成稳定ID、timingLabel、title、description、可选带偏移deadline与calendarLeadHours、相关event/booking ID。不增加网页编辑入口。
 - `ledger`：初始settings、travelers与bills。真实模板默认空账单、不预选本人。人员稳定ID用于关联；汇率不编造，未知保持空并由设置补充。金额字段名称保留Cents兼容代码，但实际为各币种最小单位，算法见ledger.md。

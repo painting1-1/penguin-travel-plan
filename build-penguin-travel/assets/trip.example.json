@@ -178,7 +178,9 @@
         121.47
       ],
       "approximate": true,
-      "intro": "演示住宿点，名称和位置都需要替换为自己的旅行资料。"
+      "intro": "",
+      "kind": "hotel",
+      "showIntro": false
     },
     {
       "id": "harbor-park",
@@ -189,7 +191,8 @@
         121.48
       ],
       "approximate": true,
-      "intro": "一处供散步和休息的河畔公园示例，可以看水景、沿步道慢逛。此描述及点位均为演示。"
+      "intro": "一处供散步和休息的河畔公园示例，可以看水景、沿步道慢逛。此描述及点位均为演示。",
+      "kind": "sight"
     },
     {
       "id": "harbor-cafe",
@@ -200,7 +203,8 @@
         121.49
       ],
       "approximate": true,
-      "intro": "一处适合喝咖啡与短暂休息的小店示例，请换成真实店铺的介绍。"
+      "intro": "一处适合喝咖啡与短暂休息的小店示例，请换成真实店铺的介绍。",
+      "kind": "cafe"
     },
     {
       "id": "mountain-start",
@@ -211,7 +215,9 @@
         120.16
       ],
       "approximate": true,
-      "intro": "演示抵达地点，准确站名和位置待替换。"
+      "intro": "",
+      "kind": "station",
+      "showIntro": false
     },
     {
       "id": "mountain-walk",
@@ -222,7 +228,8 @@
         120.17
       ],
       "approximate": true,
-      "intro": "演示慢逛街区，可以安排小店、地方小吃和街景拍照。请按真实地点核实描述。"
+      "intro": "演示慢逛街区，可以安排小店、地方小吃和街景拍照。请按真实地点核实描述。",
+      "kind": "district"
     },
     {
       "id": "mountain-airport",
@@ -233,7 +240,9 @@
         120.19
       ],
       "approximate": true,
-      "intro": ""
+      "intro": "",
+      "kind": "airport",
+      "showIntro": false
     }
   ],
   "days": [
@@ -280,6 +289,12 @@
           "placeId": "harbor-cafe",
           "note": "之后晚餐，回旅舍休息。"
         }
+      ],
+      "navigationPlaceIds": [
+        "harbor-hotel",
+        "harbor-park",
+        "harbor-cafe",
+        "harbor-hotel"
       ]
     },
     {
@@ -314,6 +329,12 @@
           "placeId": "harbor-park",
           "note": "按兴趣停留，转场时间需要按真实路线核算。"
         }
+      ],
+      "navigationPlaceIds": [
+        "harbor-hotel",
+        "harbor-cafe",
+        "harbor-park",
+        "harbor-hotel"
       ]
     },
     {
@@ -355,6 +376,11 @@
           "placeId": "mountain-airport",
           "note": "预留取行李、转场和登机缓冲，具体预算待核实。"
         }
+      ],
+      "navigationPlaceIds": [
+        "mountain-start",
+        "mountain-walk",
+        "mountain-airport"
       ]
     }
   ],

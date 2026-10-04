@@ -26,6 +26,9 @@ def validate(data):
     places={}
     for p in data.get('places',[]):
         record(p,'place');places[p.get('id')]=p;check(bool(p.get('name')),'place name required')
+        if 'showIntro' in p:check(isinstance(p['showIntro'],bool),'showIntro must be boolean')
+        if 'kind' in p:check(p['kind'] in ['sight','district','experience','restaurant','cafe','shop','airport','station','hotel','logistics'],'invalid place kind')
+        if 'navigationLabel' in p:check(isinstance(p['navigationLabel'],str) and bool(p['navigationLabel'].strip()),'navigationLabel must be nonempty text')
         coords=p.get('coordinates')
         if coords is not None:check(isinstance(coords,list) and len(coords)==2 and all(isinstance(x,(int,float)) and not isinstance(x,bool) and math.isfinite(x) for x in coords) and -90<=coords[0]<=90 and -180<=coords[1]<=180,'invalid coordinates for '+str(p.get('id')))
     def place(value,label):check(value in places,label+': unknown place '+str(value))
@@ -37,6 +40,9 @@ def validate(data):
         except Exception:errors.append('invalid day date')
         check(value>previous,'days must be ordered, unique');previous=value
         for pid in d.get('routePlaceIds',[]):place(pid,'route')
+        if 'navigationPlaceIds' in d:
+            check(isinstance(d['navigationPlaceIds'],list) and bool(d['navigationPlaceIds']),'navigationPlaceIds must be a nonempty list')
+            for pid in d['navigationPlaceIds']:place(pid,'navigation');check(pid in d.get('routePlaceIds',[]),'navigation place must be in daily map route')
         prior=-1
         for e in d.get('events',[]):
             record(e,'event');events.add(e.get('id'));check(bool(e.get('title')),'event title required')
