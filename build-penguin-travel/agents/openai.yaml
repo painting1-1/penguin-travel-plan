@@ -1,0 +1,14 @@
+interface:
+  display_name: 小企鹅旅行手册
+  short_description: 和背包小企鹅一起出发，制作橙紫配色、手机友好的旅行手册网页
+  default_prompt: 用 $build-penguin-travel 帮我制作一份小企鹅旅行手册，包含每日行程、地图、清单和多人记账。
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+  brand_color: '#7148A1'
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true

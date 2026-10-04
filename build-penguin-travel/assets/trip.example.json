@@ -1,0 +1,62 @@
+{
+  "schemaVersion": 1,
+  "demo": true,
+  "title": "小企鹅旅行手册",
+  "description": "完全虚构的字段样例，请替换为自己的旅行。",
+  "timezone": "Asia/Shanghai",
+  "baseCurrency": "CNY",
+  "selfPersonId": null,
+  "people": [
+    {
+      "id": "person-a",
+      "name": "旅伴A"
+    },
+    {
+      "id": "person-b",
+      "name": "旅伴B"
+    }
+  ],
+  "places": [
+    {
+      "id": "place-start",
+      "name": "演示住宿",
+      "query": "请填写真实地点",
+      "coordinates": null
+    }
+  ],
+  "days": [
+    {
+      "id": "day-demo",
+      "date": null,
+      "city": "待填写",
+      "stayPlaceId": "place-start",
+      "routePlaceIds": [
+        "place-start"
+      ],
+      "events": [
+        {
+          "id": "event-demo",
+          "start": null,
+          "end": null,
+          "title": "填写第一站",
+          "placeId": "place-start",
+          "note": "请填写时间与转场预算。",
+          "intro": "",
+          "status": "待确认",
+          "guides": []
+        }
+      ]
+    }
+  ],
+  "packing": [
+    {
+      "id": "packing-id",
+      "category": "证件",
+      "text": "旅行所需证件",
+      "done": false
+    }
+  ],
+  "shopping": [],
+  "todos": [],
+  "bills": []
+}
