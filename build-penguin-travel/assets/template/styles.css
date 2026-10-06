@@ -1381,3 +1381,13 @@ svg.leaflet-image-layer.leaflet-interactive path {
 #ledger-root #ledger-list-title,#ledger-root #ledger-stats-title{font-family:inherit;font-weight:700;font-variant-numeric:tabular-nums}
 
 .ledger-personal-currencies,.ledger-category-totals{margin:14px 0 0;padding:0;font-size:13px}.ledger-personal-currencies>div,.ledger-category-totals>div{display:flex;justify-content:space-between;align-items:baseline;gap:14px;padding:7px 0;border-bottom:1px solid var(--line,#e9dce9)}.ledger-personal-currencies dt,.ledger-category-totals dt{font-weight:400;color:var(--muted,#73677c)}.ledger-personal-currencies dd,.ledger-category-totals dd{margin:0;font-weight:650;font-variant-numeric:tabular-nums;white-space:nowrap}.ledger-personal-categories{margin-top:24px}.ledger-stats-overview .ledger-personal-currencies{max-width:480px;text-align:left}.ledger-personal-categories .ledger-section-kicker{font-size:14px}
+
+/* Personal category spending: compact emoji rows, proportional bars, base currency only. */
+.ledger-category-totals>div{display:grid;grid-template-columns:76px minmax(0,1fr);align-items:center;gap:10px;padding:10px 0;border-bottom:0}
+.ledger-category-totals dt{display:flex;align-items:center;gap:8px;white-space:nowrap;color:var(--ink,#302638)}
+.ledger-category-emoji{font-size:19px;width:24px;text-align:center;flex-shrink:0}
+.ledger-category-totals dd{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:12px;min-width:0}
+.ledger-category-track{display:block;height:7px;min-width:0;border-radius:999px;background:rgba(139,92,173,.08);overflow:hidden}
+.ledger-category-fill{display:block;height:100%;border-radius:inherit;background:var(--purple,#8b5cad)}
+.ledger-category-amount{min-width:68px;text-align:right;font-size:13px}
+@media(max-width:360px){.ledger-category-totals>div{grid-template-columns:70px minmax(0,1fr);gap:8px}.ledger-category-totals dd{gap:8px}.ledger-category-amount{min-width:60px;font-size:12px}}
