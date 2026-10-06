@@ -986,18 +986,67 @@
     }).join("");
   }
 
+  function calculatePersonalBreakdown(bills, travelerIds, selfId, baseCurrency = "CNY") {
+    if (!travelerIds.includes(selfId)) return { totalCents: null, currencies: [], categories: [] };
+    const groups = new Map();
+    for (const bill of bills) {
+      if (!groups.has(bill.currency)) groups.set(bill.currency, { total: 0, converted: 0, own: 0, categories: new Map() });
+      const group = groups.get(bill.currency);
+      const rate = bill.currency === baseCurrency ? 1 : Number(bill.exchangeRate) || (bill.baseAmountCents / currencyScale(baseCurrency)) / (bill.originalAmountCents / currencyScale(bill.currency));
+      group.total += bill.originalAmountCents;
+      group.converted += toBaseMinor(bill.originalAmountCents, bill.currency, rate, baseCurrency);
+      const participants = [...new Set(bill.participantIds)].filter(id => travelerIds.includes(id));
+      if (!participants.includes(selfId)) continue;
+      const custom = bill.splitMode === "custom" && participants.every(id => Number.isSafeInteger(Number(bill.sharesCents?.[id])))
+        && participants.reduce((sum, id) => sum + Number(bill.sharesCents[id]), 0) === bill.baseAmountCents;
+      const fraction = custom ? Number(bill.sharesCents[selfId]) / bill.baseAmountCents : 1 / participants.length;
+      const own = bill.originalAmountCents * fraction;
+      const category = CATEGORIES.includes(bill.category) ? bill.category : "其他";
+      group.own += own;
+      group.categories.set(category, (group.categories.get(category) || 0) + own);
+    }
+    let exactTotal = 0;
+    const categories = new Map(), currencies = [];
+    for (const [currency, group] of groups) {
+      if (!group.total || group.own <= 0) continue;
+      const rate = group.converted / group.total;
+      exactTotal += group.own * rate;
+      currencies.push({ currency, amountCents: Math.round(group.own) });
+      for (const [category, own] of group.categories) categories.set(category, (categories.get(category) || 0) + own * rate);
+    }
+    const totalCents = Math.round(exactTotal);
+    const rows = CATEGORIES.filter(category => (categories.get(category) || 0) > 0).map(category => {
+      const exact = categories.get(category), amountCents = Math.floor(exact);
+      return { category, amountCents, remainder: exact - amountCents };
+    });
+    const remainderOrder = [...rows].sort((a,b) => b.remainder-a.remainder || CATEGORIES.indexOf(a.category)-CATEGORIES.indexOf(b.category));
+    let difference = totalCents - rows.reduce((sum,row) => sum+row.amountCents,0);
+    for (let i=0; i<difference; i++) remainderOrder[i % remainderOrder.length].amountCents++;
+    return { totalCents, currencies, categories: rows.map(({category,amountCents})=>({category,amountCents})) };
+  }
+
+  function renderPersonalBreakdown(personal) {
+    const baseCurrency = ledgerData.settings.baseCurrency;
+    const breakdown = calculatePersonalBreakdown(ledgerData.bills, ledgerData.travelers.map(t=>t.id), personal.traveler?.id, baseCurrency);
+    return { currencyHtml: personal.traveler ? (breakdown.currencies.length ? '<dl class="ledger-personal-currencies">'+breakdown.currencies.map(row=>'<div><dt>'+escapeHtml(currencyByCode(row.currency).nameZh)+' · '+escapeHtml(row.currency)+'</dt><dd>'+escapeHtml(formatMoney(row.amountCents,row.currency))+'</dd></div>').join('')+'</dl>' : '<p class="ledger-settlement-hint">暂无个人支出</p>') : '',
+      categoryHtml: '<section class="ledger-personal-categories" aria-labelledby="ledger-category-title"><p class="ledger-section-kicker" id="ledger-category-title">我的分类支出</p>'+(personal.traveler ? (breakdown.categories.length ? '<dl class="ledger-category-totals">'+breakdown.categories.map(row=>'<div><dt>'+escapeHtml(row.category)+'</dt><dd>'+escapeHtml(formatMoney(row.amountCents,baseCurrency))+'</dd></div>').join('')+'</dl><p class="ledger-settlement-hint">仅含本人承担份额 · 按账单保存汇率及各币种加权汇率折算；分类分钱尾差调整后与个人总额一致。</p>' : '<p class="ledger-settlement-hint">暂无个人支出</p>') : '<p class="ledger-settlement-hint">请在设置中选择本人，查看分类支出。</p>')+'</section>' };
+  }
+
   function renderStatsPage() {
     const stats = calculateStats();
     const baseCurrency = ledgerData.settings.baseCurrency;
     const peopleTransfers = groupTransfersByPeople(stats.currencyTransfers);
     const personal = personalTravelCost(stats);
+    const breakdown = renderPersonalBreakdown(personal);
     return `
       <section class="ledger-tab-panel" data-ledger-panel="stats" role="tabpanel" aria-labelledby="ledger-stats-tab" ${activeTab === "stats" ? "" : "hidden"}>
         <section class="ledger-stats-overview" aria-labelledby="ledger-stats-title">
-          <p class="ledger-section-kicker">我的旅行花费</p>
+          <p class="ledger-section-kicker">我的总支出</p>
           <h2 id="ledger-stats-title">${personal.traveler ? escapeHtml(formatMoney(personal.amountCents, baseCurrency)) : "—"}</h2>
           <span>${personal.traveler ? escapeHtml(personal.traveler.name) + " · 仅含本人承担的份额 · 折合" + escapeHtml(currencyByCode(baseCurrency).nameZh) : "请在设置中选择本人，查看个人花费"}</span>
+          ${breakdown.currencyHtml}
         </section>
+        ${breakdown.categoryHtml}
 
         <section class="ledger-settlement-section" aria-labelledby="ledger-settlement-title">
           <div class="ledger-section-heading">
@@ -2068,6 +2117,7 @@
     init,
     setActiveTab,
     calculateCurrencyTransfers,
+    calculatePersonalBreakdown,
     calculateCurrencySettlement,
     currencyDigits,
     toCents,

@@ -1379,3 +1379,5 @@ svg.leaflet-image-layer.leaflet-interactive path {
 
 /* Match ledger count and summary amount to the body sans-serif type. */
 #ledger-root #ledger-list-title,#ledger-root #ledger-stats-title{font-family:inherit;font-weight:700;font-variant-numeric:tabular-nums}
+
+.ledger-personal-currencies,.ledger-category-totals{margin:14px 0 0;padding:0;font-size:13px}.ledger-personal-currencies>div,.ledger-category-totals>div{display:flex;justify-content:space-between;align-items:baseline;gap:14px;padding:7px 0;border-bottom:1px solid var(--line,#e9dce9)}.ledger-personal-currencies dt,.ledger-category-totals dt{font-weight:400;color:var(--muted,#73677c)}.ledger-personal-currencies dd,.ledger-category-totals dd{margin:0;font-weight:650;font-variant-numeric:tabular-nums;white-space:nowrap}.ledger-personal-categories{margin-top:24px}.ledger-stats-overview .ledger-personal-currencies{max-width:480px;text-align:left}.ledger-personal-categories .ledger-section-kicker{font-size:14px}
