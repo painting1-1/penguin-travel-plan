@@ -140,6 +140,7 @@
     $('#day-list').innerHTML=`<div class="day-tabs" role="tablist" aria-label="选择行程日期">${trip.days.map((d,i)=>`<button type="button" class="day-tab" role="tab" id="day-tab-${i}" aria-controls="day-panel" aria-selected="false" tabindex="-1" data-day="${i}" style="--day:${esc(d.color||'#7148A1')}"><span>D${i+1}</span><strong>${dateLabel(d.date)}</strong><small>${esc(d.label||d.city)}</small></button>`).join('')}</div><div id="day-panel" role="tabpanel" tabindex="0"></div>`;
     const found=trip.days.findIndex(d=>d.date===localDate(d.timezone||trip.timezone));renderDay(found<0?0:found);
     const select=i=>{renderDay(i);$('#day-panel').setAttribute('aria-labelledby','day-tab-'+i);const b=$(`#day-tab-${i}`);b.scrollIntoView({block:'nearest',inline:'center'});};
+    document.querySelector('nav a[href="#days"]')?.addEventListener('click',event=>{if(event.ctrlKey||event.metaKey||event.shiftKey||event.altKey)return;const today=trip.days.findIndex(d=>d.date===localDate(d.timezone||trip.timezone));if(today>=0)select(today);});
     document.querySelectorAll('[data-day]').forEach(b=>{b.onclick=()=>select(Number(b.dataset.day));b.onkeydown=e=>{const n=e.key==='ArrowRight'?Math.min(activeDay+1,trip.days.length-1):e.key==='ArrowLeft'?Math.max(0,activeDay-1):e.key==='Home'?0:e.key==='End'?trip.days.length-1:null;if(n!==null){e.preventDefault();select(n);$(`#day-tab-${n}`).focus({preventScroll:true});}};});
   }
   function openMap(d) {
